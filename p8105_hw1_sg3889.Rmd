@@ -47,3 +47,8 @@ ggplot(
   geom_point()
 ```
 
+Export the scatterplot to the working directory.
+
+```{r export, warning = FALSE}
+ggsave("scatterplot_flipper_bill_length_by_species.pdf", height = 4, width = 6)
+```
