@@ -3,13 +3,19 @@ title: "P8105 -- Homework 1"
 output: github_document
 ---
 
+```{r library, message = FALSE}
+library(tidyverse)
+```
+
 # Problem 1
 
 Load the `penguins` dataset.
 
-```{r}
+```{r load_data}
 data("penguins", package = "palmerpenguins")
 ```
+
+## Brief Summary
 
 Look at the dataset using `view()`.
 
@@ -17,9 +23,9 @@ Look at the dataset using `view()`.
 View(penguins)
 ```
 
-Look at a summarized version of the dataset using `summary()`.
+Look at a brief summary of the dataset using `summary()`.
 
-```{r}
+```{r summary}
 summary(penguins)
 ```
 
@@ -28,3 +34,16 @@ Discussion:
 *  The variables involved in the `penguins` dataset are **species**, **island**, **bill_length_mm**, **bill_depth_mm**, **flipper_length_mm**, **body_mass_g**, **sex**, and **year**. For a brief summary of this dataset, there are 3 speicies of penguins, including Adelie, Chinstrap, and Gentoo. The penguins come from 3 unique islands, including Biscoe, Dream, and Torgersen. The penguins in this dataset have bill lengths ranging from `r min(penguins$bill_length_mm, na.rm = TRUE) `mm to `r max(penguins$bill_length_mm, na.rm = TRUE)` mm, bill depths ranging from `r min(penguins$bill_depth_mm, na.rm = TRUE)` mm to `r max(penguins$bill_depth_mm, na.rm = TRUE)` mm, flipper lengths ranging from `r min(penguins$flipper_length_mm, na.rm = TRUE)` mm to `r max(penguins$flipper_length_mm, na.rm = TRUE)` mm, and body masses ranging from `r min(penguins$body_mass_g, na.rm = TRUE)` g to `r max(penguins$body_mass_g, na.rm = TRUE)` g. There are 165 female and 168 male penguins in the dataset, and all of the penguins were born between 2007 and 2009.  
 *  The dataset has `r nrow(penguins)` rows and `r ncol(penguins)` columns.  
 *  The mean flipper length for the penguins in the dataset is `r round(mean(penguins$flipper_length_mm, na.rm = TRUE), 2)` mm.
+
+## Scatterplot
+
+Now I will make a scatterplot of `flipper_length_mm` on y-axis and `bill_length_mm` on x-axis, with colored points by `species`.
+
+```{r scatterplot, warning = FALSE}
+ggplot(
+  penguins,
+  aes(x = bill_length_mm, y = flipper_length_mm, color = species)
+  ) +
+  geom_point()
+```
+
