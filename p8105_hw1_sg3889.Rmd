@@ -2,3 +2,12 @@
 title: "P8105 -- Homework 1"
 output: github_document
 ---
+
+# Problem 1
+
+Load the `penguins` dataset.
+
+```{r}
+data("penguins", package = "palmerpenguins")
+```
+
