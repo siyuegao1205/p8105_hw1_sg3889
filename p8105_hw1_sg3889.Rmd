@@ -15,7 +15,7 @@ Load the `penguins` dataset.
 data("penguins", package = "palmerpenguins")
 ```
 
-## Brief Summary
+## Brief summary
 
 Look at the dataset using `view()`.
 
@@ -31,7 +31,12 @@ summary(penguins)
 
 Discussion:  
 
-*  The variables involved in the `penguins` dataset are **species**, **island**, **bill_length_mm**, **bill_depth_mm**, **flipper_length_mm**, **body_mass_g**, **sex**, and **year**. For a brief summary of this dataset, there are 3 speicies of penguins, including Adelie, Chinstrap, and Gentoo. The penguins come from 3 unique islands, including Biscoe, Dream, and Torgersen. The penguins in this dataset have bill lengths ranging from `r min(penguins$bill_length_mm, na.rm = TRUE) `mm to `r max(penguins$bill_length_mm, na.rm = TRUE)` mm, bill depths ranging from `r min(penguins$bill_depth_mm, na.rm = TRUE)` mm to `r max(penguins$bill_depth_mm, na.rm = TRUE)` mm, flipper lengths ranging from `r min(penguins$flipper_length_mm, na.rm = TRUE)` mm to `r max(penguins$flipper_length_mm, na.rm = TRUE)` mm, and body masses ranging from `r min(penguins$body_mass_g, na.rm = TRUE)` g to `r max(penguins$body_mass_g, na.rm = TRUE)` g. There are 165 female and 168 male penguins in the dataset, and all of the penguins were born between 2007 and 2009.  
+*  The variables involved in the `penguins` dataset are **species**, **island**, **bill_length_mm**, **bill_depth_mm**, **flipper_length_mm**, **body_mass_g**, **sex**, and **year**. For a brief summary of this dataset:
+    * There are 3 speicies of penguins, including Adelie, Chinstrap, and Gentoo.
+    * The penguins come from 3 unique islands, including Biscoe, Dream, and Torgersen.
+    * The penguins in this dataset have bill lengths ranging from `r min(penguins$bill_length_mm, na.rm = TRUE) `mm to `r max(penguins$bill_length_mm, na.rm = TRUE)` mm, bill depths ranging from `r min(penguins$bill_depth_mm, na.rm = TRUE)` mm to `r max(penguins$bill_depth_mm, na.rm = TRUE)` mm, flipper lengths ranging from `r min(penguins$flipper_length_mm, na.rm = TRUE)` mm to `r max(penguins$flipper_length_mm, na.rm = TRUE)` mm, and body masses ranging from `r min(penguins$body_mass_g, na.rm = TRUE)` g to `r max(penguins$body_mass_g, na.rm = TRUE)` g.
+    * There are 165 female and 168 male penguins in the dataset.
+    * All of the penguins were born between 2007 and 2009.  
 *  The dataset has `r nrow(penguins)` rows and `r ncol(penguins)` columns.  
 *  The mean flipper length for the penguins in the dataset is `r round(mean(penguins$flipper_length_mm, na.rm = TRUE), 2)` mm.
 
@@ -55,7 +60,7 @@ ggsave("scatterplot_flipper_bill_length_by_species.pdf", height = 4, width = 6)
 
 # Problem 2
 
-Create a data frame.
+## Create dataframe
 
 ```{r df}
 p2_df =
@@ -67,3 +72,26 @@ p2_df =
   )
 ```
 
+## Take the mean
+
+```{r mean, warning = FALSE}
+mean(pull(p2_df, var_norm))
+mean(pull(p2_df, var_logical))
+mean(pull(p2_df, var_character))
+mean(pull(p2_df, var_factor))
+```
+
+Taking the mean of numeric (`var_norm`) and logical (`var_logical`) variables works, but when taking the mean of character (`var_character`) and factor (`var_factor`) variables, it does not work.
+
+## Convert variable type: to numeric
+
+I will achieve it by `as.numeric` function.
+
+```{r conversion, eval = FALSE}
+as.numeric(pull(p2_df, var_logical))
+as.numeric(pull(p2_df, var_character))
+as.numeric(pull(p2_df, var_factor))
+```
+
+I could successfully convert the logical variable into numeric. However, I failed to convert the character and factor into numeric. This happens because R can treat the logical "TRUE" and "FALSE", as "1" and "0", respectively, by default, but the character and factor cannot be treated as number (though factor can be re-coded by numbers to represent the "levels").  
+As logical variable can be converted into numeric, character and factor cannot, it helps to explain what happens when trying to take the mean.
