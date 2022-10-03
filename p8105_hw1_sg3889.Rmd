@@ -68,7 +68,7 @@ p2_df =
     var_norm = rnorm(n = 10),
     var_logical = var_norm > 0,
     var_character = c("alopecia", "anxiety", "asthma", "chills", "deafness", "fever", "headache", "infection", "nausea", "rash"),
-    var_factor = c("severe", "severe", "mild", "moderate", "mild", "severe", "moderate", "mild", "mild", "mild")
+    var_factor = factor(c("severe", "severe", "mild", "moderate", "mild", "severe", "moderate", "mild", "mild", "mild"))
   )
 ```
 
@@ -93,5 +93,7 @@ as.numeric(pull(p2_df, var_character))
 as.numeric(pull(p2_df, var_factor))
 ```
 
-I could successfully convert the logical variable into numeric. However, I failed to convert the character and factor into numeric. This happens because R can treat the logical "TRUE" and "FALSE", as "1" and "0", respectively, by default, but the character and factor cannot be treated as number (though factor can be re-coded by numbers to represent the "levels").  
+I could successfully convert the logical variable into numeric. However, I failed to convert the character into numeric. This happens because R can treat the logical "TRUE" and "FALSE", as "1" and "0", respectively, by default, but the character and factor cannot be treated as number (though factor can be re-coded by numbers to represent the "levels").  
 As logical variable can be converted into numeric, character and factor cannot, it helps to explain what happens when trying to take the mean.
+
+The factor can be successfully converted to numeric, taking values of 1 for `"mild"`, 2 for `"moderate"`, and 3 for `"severe"`. Numeric values are assigned to the factor levels, which are alphabetical unless otherwise specified (which is also reasonable in this context).
